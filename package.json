@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/JoeMerrell/readme-generator/issues"
   },
-  "homepage": "https://github.com/JoeMerrell/readme-generator#readme"
+  "homepage": "https://github.com/JoeMerrell/readme-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.1.0"
+  }
 }
