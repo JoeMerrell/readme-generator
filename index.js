@@ -1,18 +1,20 @@
 // TODO: Include packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer');
-const generateReadme = require('./utils/generateMarkdown.js');
+const generateMarkdown = require('./utils/generateMarkdown.js');
+const path = require('path');
 
 // TODO: Create an array of questions for user input
 
+// Questions/Sections and corresponding name values (variables)
 // NAME -- name
 // GITHUB USERNAME -- github
+// EMAIL ADDRESS -- emailAdd
 // NAME OF PROJECT -- projectName
 // DESCRIPTION -- projectDescription
 // INSTALLATION -- confirmInstallation / installation
 // USAGE -- usage
 // LICENSE -- licence
-// TABLE OF CONTENTS -- contents
 
 const questions = () => {
     return inquirer.prompt([
@@ -24,7 +26,7 @@ const questions = () => {
             if (nameInput) {
             return true;
             } else {
-            console.log('Please enter your name!');
+            console.log('Please enter your name');
             return false;
             }
         }
@@ -37,12 +39,24 @@ const questions = () => {
             if (githubInput) {
             return true;
             } else {
-            console.log('Please enter your GitHub username!');
+            console.log('Please enter your GitHub username');
             return false;
             }
         }
         },
-
+        {
+            type: 'input',
+            name: 'emailAdd',
+            message: 'Provide a contact email address',
+            validate: emailInput => {
+                if (emailInput) {
+                return true;
+                } else {
+                console.log('Please provide a contact email address');
+                return false;
+                }
+            }
+            },
         {
         type: 'input',
         name: 'projectName',
@@ -51,7 +65,7 @@ const questions = () => {
             if (projectInput) {
             return true;
             } else {
-            console.log('You need to enter a project name!');
+            console.log('Please enter a project name');
             return false;
             }
         }    
@@ -84,12 +98,12 @@ const questions = () => {
           {
             type: 'input',
             name: 'usage',
-            message: 'Provide usage instructions (Required)',
+            message: 'Provide usage instructions',
                 validate: usageInput => {
                 if (usageInput) {
                 return true;
                 } else {
-                console.log('You need to provide usage instructions!');
+                console.log('Please provide usage instructions');
                 return false;
                 }
             }
@@ -99,14 +113,7 @@ const questions = () => {
             name: 'license',
             message: 'Choose a license for your project:',
             choices: ['None', 'MIT', 'APACHE 2.0', 'GPL 3.0', 'BSD 3']
-        },
-        {
-            type: 'confirm',
-            name: 'contents',
-            message: '(Final question) Would you like to include a table of contents?',
-            default: false
-        },
-
+        }
     ])
 }
 
@@ -116,12 +123,15 @@ function writeToFile(fileName, data) {
   }
 
 // TODO: Create a function to initialize app
+
 function init() {
-    inquirer.prompt(questions).then(inquirerResponses => {
+    
+    questions().then(inquirerResponses => {
       console.log('README created!');
       writeToFile('README.md', generateMarkdown({ ...inquirerResponses }));
     });
   }
 
-// Function call to initialize app
+// // Function call to initialize app
 init();
+

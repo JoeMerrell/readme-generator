@@ -27,11 +27,89 @@ This project's license is: ${license}.`;
   return '';
 }
 
+// Function that generates a CONTENTS section according to user selection (may add feature later -- saved the code)
+// If user chose not to include contents, return an empty string
+
+// function renderContents(contents) {
+//   if (contents !== false) {
+//     return `## Contents 
+
+//     * [Installation](#installation)
+    
+//     * [Usage](#usage)
+
+//     * ${renderLicenseLink(data.license)}
+    
+//     * [Questions](#questions)
+    
+//     `;
+//   }
+//   return '';
+// }
+
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  return `# ${data.title}
-
+  return `# ${data.projectName}
 `;
 }
 
+function generateMarkdown(data) {
+  return `# ${data.projectName}
+${renderLicenseBadge(data.license)}
+
+## Description
+
+${data.projectDescription}
+
+
+## Contents 
+
+* [Installation](#installation)
+
+* [Usage](#usage)
+
+* ${renderLicenseLink(data.license)}
+
+* [Contributing](#contributing)
+
+* [Tests](#tests)
+
+* [Questions](#questions)
+
+## Installation
+
+To install necessary dependencies, run the following command:
+
+\`\`\`
+${data.installation}
+\`\`\`
+
+## Usage
+
+${data.usage}
+
+${renderLicenseSection(data.license)}
+  
+## Contributing
+
+${data.contributing}
+
+## Tests
+
+To run tests, run the following command:
+
+\`\`\`
+${data.test}
+\`\`\`
+
+## Questions
+
+If you have any questions about the repo, open an issue or contact me directly at ${
+    data.emailAdd
+  }. You can find more of my work at [${data.github}](https://github.com/${
+    data.github
+  }/).
+
+`;
+}
 module.exports = generateMarkdown;
