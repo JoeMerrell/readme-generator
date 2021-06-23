@@ -15,14 +15,13 @@ function renderLicenseLink(license) {
   }
   return '';
 }
-
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
   if (license !== 'None') {
     return `## License
 
-This project's license is: ${license}.`;
+This project's license is: ${license}`;
   }
   return '';
 }
@@ -47,6 +46,15 @@ This project's license is: ${license}.`;
 //   return '';
 // }
 
+function renderImage(image) {
+  if (image !== false) {
+    return `<img src="${image}">`;
+  
+  }
+  return '';
+}
+
+
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
   return `# ${data.projectName}
@@ -54,8 +62,14 @@ function generateMarkdown(data) {
 }
 
 function generateMarkdown(data) {
-  return `# ${data.projectName}
+  return `
+<h1 align="center">
+    ${data.projectName}
+</h1>
+
+
 ${renderLicenseBadge(data.license)}
+
 
 ## Description
 
@@ -78,11 +92,9 @@ ${data.projectDescription}
 
 ## Installation
 
-To install necessary dependencies, run the following command:
 
-\`\`\`
 ${data.installation}
-\`\`\`
+
 
 ## Usage
 
@@ -96,18 +108,13 @@ ${data.contributing}
 
 ## Tests
 
-To run tests, run the following command:
-
-\`\`\`
 ${data.test}
-\`\`\`
 
 ## Questions
 
-If you have any questions about the repo, open an issue or contact me directly at ${
+If you have any questions about the repo, open an issue or contact ${data.name} (me) directly at ${
     data.emailAdd
-  }. You can find more of my work at [${data.github}](https://github.com/${
-    data.github
+  }. You can find more of my work at my github account: [${data.github}](https://github.com/${data}.github
   }/).
 
 `;

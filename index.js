@@ -14,6 +14,8 @@ const path = require('path');
 // DESCRIPTION -- projectDescription
 // INSTALLATION -- confirmInstallation / installation
 // USAGE -- usage
+// CONTRIBUTING -- contributing
+// TEST -- test
 // LICENSE -- licence
 
 const questions = () => {
@@ -60,7 +62,7 @@ const questions = () => {
         {
         type: 'input',
         name: 'projectName',
-        message: 'What is the name of your project? (Required)',
+        message: 'What is the name of your project?',
         validate: projectInput => {
             if (projectInput) {
             return true;
@@ -73,32 +75,33 @@ const questions = () => {
         {
         type: 'input',
         name: 'projectDescription',
-        message: 'Provide a description of the project (Required)',
+        message: 'Provide a description of the project:',
             validate: descriptionInput => {
             if (descriptionInput) {
             return true;
             } else {
-            console.log('You need to enter a project description!');
+            console.log('You need to enter a project description');
             return false;
             }
         }
         },
-        {
-            type: 'confirm',
-            name: 'confirmInstallation',
-            message: 'Would you like to provide installation instructions?',
-            default: true
-          },
           {
             type: 'input',
             name: 'installation',
-            message: 'Installation instructions:',
-            when: ({ confirmInstallation }) => confirmInstallation
-          },
+            message: 'Installation instructions (including information on dependencies):',
+            validate: installInput => {
+                if (installInput) {
+                return true;
+                } else {
+                console.log('Please provide installation instructions');
+                return false;
+                }
+            }
+            },
           {
             type: 'input',
             name: 'usage',
-            message: 'Provide usage instructions',
+            message: 'Provide usage instructions/guidelines:',
                 validate: usageInput => {
                 if (usageInput) {
                 return true;
@@ -112,8 +115,47 @@ const questions = () => {
             type: 'list',
             name: 'license',
             message: 'Choose a license for your project:',
-            choices: ['None', 'MIT', 'APACHE 2.0', 'GPL 3.0', 'BSD 3']
-        }
+            choices: ['None', 'MIT', 'APACHE_2.0', 'GPL_3.0', 'BSD_3']
+        },
+        {
+            type: 'input',
+            name: 'contributing',
+            message: 'Provide instructions for contributing to the repo:',
+                validate: contributeInput => {
+                if (contributeInput) {
+                return true;
+                } else {
+                console.log('Please provide instructions for contributing');
+                return false;
+                }
+            }
+            },
+            {
+                type: 'input',
+                name: 'test',
+                message: 'Provide instructions for testing the app:',
+                    validate: testInput => {
+                    if (testInput) {
+                    return true;
+                    } else {
+                    console.log('Please provide instructions for testing');
+                    return false;
+                    }
+                }
+                },
+          // trying to develop system for importing images -- perhaps a future version
+          // {
+          //   type: 'confirm',
+          //   name: 'confirmImage',
+          //   message: 'Would you like to add a screenshot to the bottom of the page?',
+          //   default: true
+          // },
+          // {
+          //   type: 'input',
+          //   name: 'image',
+          //   message: 'Please provide your image path (note that the image should be in an image folder and that the path may be changed in the README at a later time):',
+          //   when: ({ confirmImage }) => confirmImage
+          // }
     ])
 }
 
@@ -123,7 +165,6 @@ function writeToFile(fileName, data) {
   }
 
 // TODO: Create a function to initialize app
-
 function init() {
     
     questions().then(inquirerResponses => {
@@ -132,6 +173,6 @@ function init() {
     });
   }
 
-// // Function call to initialize app
+// Function call to initialize app
 init();
 
